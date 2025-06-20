@@ -1,0 +1,544 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafelicious & Co. Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+    <link rel="stylesheet" href="{% static 'css/style_admin.css' %}">   
+</head>
+<body>
+    <div>{% include 'header.html' %}</div>
+    <header>
+        <div class="menu-toggle">
+            <!-- Hamburger Icon -->
+            <label class="hamburger-icon" id="hamburger">&#9776;</label>
+    
+            <!-- Side Panel -->
+            <div class="left-panel" id="leftPanel">
+                <!-- Close Button -->
+                <span class="close2" id="closeBtn">
+                    <a href="javascript:void(0);" style="color: white;">&times;</a>
+                </span>
+                <div class="panel-content">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleAccountDetails()">Account Details ▼</a>
+                            <div id="account-info" class="account-info">
+                                <p><strong>Name:</strong> {{ admin.name }}</p>
+                                <p><strong>Email:</strong> {{ admin.email }}</p>
+                                <p><strong>Phone:</strong> {{ admin.phone }}</p>
+                            </div>
+                        </li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h1>Admin Panel</h1>
+    </header>
+    
+    <div class="container">
+    <!-- STORE TABLE -->
+    <section class="store-section">
+      <h2>Stores</h2>
+      <button class="open-modal" data-model="store">Add Store</button>
+
+      <table id="storeTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Contact Info</th>
+            <th>Opening Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for store in stores %}
+            <tr>
+                <td>{{ store.store_id }}</td>
+                <td>{{ store.store_name }}</td>
+                <td>{{ store.location }}</td>
+                <td>{{ store.contact_info }}</td>
+                <td>{{ store.opening_date }}</td>
+                <td>{{ store.status }}</td>
+                <td>
+                  <button onclick="openUpdateModal('store', '{{ store.store_id }}')">Update</button>
+
+                  <button onclick="deleteItem('store', '{{ store.store_id }}')">Remove</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- ADMIN TABLE -->
+    <section class="admin-section">
+      <h2>Admins</h2>
+      <button class="open-modal" data-model="admin">Add Admin</button>
+      <table id="adminTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Store</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for admin in all_admins %}
+            <tr>
+                <td>{{admin.admin_id}}</td>
+                <td>{{admin.store|default:"Not Assigned"}}</td>
+                <td>{{admin.name}}</td>
+                <td>{{admin.email}}</td>
+                <td>{{admin.phone}}</td>
+                <td>{{admin.date_joined}}</td>
+                
+                <td>
+                  <button onclick="openUpdateModal('admin', '{{ admin.admin_id }}')">Update</button>
+                  <button onclick="deleteItem('admin', '{{ admin.admin_id }}')">Remove</button>
+                  
+                </td>
+              </tr>
+              {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- CATEGORY TABLE -->
+    <section class="category-section">
+      <h2>Categories</h2>
+      <button class="open-modal" data-model="category">Add Category</button>
+      <button class="toggle-table-btn" data-target="categoryTable">Show All</button>
+      <input type="text" id="categorySearch" onkeyup="filterTable('categorySearch', 'categoryTable')" placeholder="Search Categories...">
+
+      <table id="categoryTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{% for category in categories %}
+          <tr>
+              <td>{{category.category_id}}</td>
+              <td>{{category.category_name}}</td>
+              <td>{{category.description}}</td>
+              <td>
+                <button onclick="openUpdateModal('category', '{{ category.category_id }}')">Update</button>
+                <button onclick="deleteItem('category', '{{ category.category_id }}')">Remove</button>
+              </td>
+            </tr>
+            {% endfor %}</tbody>
+      </table>
+    </section>
+  
+    <!-- MENU TABLE -->
+    <section class="menu-section">
+      <h2>Menu</h2>
+      <button class="open-modal" data-model="menu">Add Menu</button>
+      <button class="toggle-table-btn" data-target="menuTable">Show All</button>
+      <input type="text" id="menuSearch" onkeyup="filterTable('menuSearch', 'menuTable')" placeholder="Search Menu...">
+      <table id="menuTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Store</th>
+            <th>Admin</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{% for menu in all_menu %}
+          <tr>
+              <td>{{menu.menu_id}}</td>
+              <td>{{menu.menu_name}}</td>
+              <td>{{menu.description}}</td>
+              <td>{{menu.price}}</td>
+              <td><img src="{{ MEDIA_URL }}/{{ menu.image }}" alt="{{ menu.menu_name }}" width="100"></td>
+              <td>{{menu.store|default:"Not Assigned"}}</td>
+              <td>{{menu.admin|default:"Not Assigned"}}</td>
+              <td>
+                <button onclick="openUpdateModal('menu', '{{ menu.menu_id }}')">Update</button>
+                <button onclick="deleteItem('menu', '{{ menu.menu_id }}')">Remove</button>
+              </td>
+              
+              
+            </tr>
+            {% endfor %}</tbody>
+      </table>
+    </section>
+  
+    <!-- MENU CATEGORY TABLE -->
+    <section class="menu-category-section">
+      <h2>Menu Categories</h2>
+      <button class="open-modal" data-model="menu-category">Add Menu Category</button>
+      <button class="toggle-table-btn" data-target="menuCategoryTable">Show All</button>
+      <input type="text" id="menuCategorySearch" onkeyup="filterTable('menuCategorySearch', 'menuCategoryTable')" placeholder="Search MenuCategory...">
+      <table id="menuCategoryTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>Menu</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{% for menucategory in menucategories %}
+          <tr>
+              <td>{{menucategory.menu|default:"Not Assigned"}}</td>
+              <td>{{menucategory.category|default:"Not Assigned"}}</td>
+              <td>
+                <button onclick="openUpdateModal('menucategory', '{{ menucategory.pk }}')">Update</button>
+                <button onclick="deleteItem('menucategory', '{{ menucategory.pk }}')">Remove</button>
+              </td>
+            </tr>
+            {% endfor %}</tbody>
+      </table>
+    </section>
+  
+    <!-- OFFER TABLE -->
+    <section class="offer-section">
+      <h2>Offers</h2>
+      <button class="open-modal" data-model="offer">Add Offer</button>
+      <table id="offerTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Store</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{% for offer in offers %}
+          <tr>
+              <td>{{offer.offer_id}}</td>
+              <td>{{offer.offer_name}}</td>
+              <td>{{offer.price}}</td>
+              <td>{{offer.description}}</td>
+              <td><img src="{{ MEDIA_URL }}/{{ offer.image }}" alt="{{ offer.offer_name }}" width="100"></td>
+              <td>{{offer.store|default:"Not Assigned"}}</td>
+              <td>
+                <button onclick="openUpdateModal('offer', '{{ offer.offer_id }}')">Update</button>
+                <button onclick="deleteItem('offer', '{{ offer.offer_id }}')">Remove</button>
+              </td>
+            </tr>
+            {% endfor %}</tbody>
+      </table>
+    </section>
+  
+    <!-- SIZE TABLE -->
+    <section class="size-section">
+      <h2>Sizes</h2>
+      <button class="open-modal" data-model="size">Add Size</button>
+      <table id="sizeTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Menu</th>
+            <th>Medium Price</th>
+            <th>Large Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{% for size in sizes %}
+          <tr>
+              <td>{{size.id}}</td>
+              <td>{{size.menu|default:"Not Assigned"}}</td>
+              <td>{{size.price_m}}</td>
+              <td>{{size.price_l}}</td>
+              <td>
+                <button onclick="openUpdateModal('size', '{{ size.id }}')">Update</button>
+                <button onclick="deleteItem('size', '{{ size.id }}')">Remove</button>
+              </td>
+            </tr>
+            {% endfor %}</tbody>
+      </table>
+    </section>
+  </div>
+
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+  
+  
+  <!-- Placeholder for modals -->
+  
+  
+  <div id="modalContainer">
+    
+    <!-- Update Modal for Store -->
+
+
+<!-- Modal -->
+    <div id="updateModal-store" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeUpdateModal('store')">&times;</span>
+      <form id="updateForm-store" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="store_id" id="updateStoreId">
+  
+        <label>Store Name:</label>
+        <input type="text" name="name" id="updateStoreName">
+  
+        <label>Location:</label>
+        <input type="text" name="location" id="updateStoreLocation">
+  
+        <label>Contact:</label>
+        <input type="text" name="contact" id="updateStoreContact">
+
+        <label>Date Opened:</label>
+        <input type="date" name="date_opened" id="updateDateOpened">
+
+        <label>Status:</label>
+        <input type="text" name="status" id="updateStatus">
+  
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Update Modal for Admin -->
+
+
+<!-- Modal -->
+  
+  <div id="updateModal-admin" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeUpdateModal('admin')">&times;</span>
+      <form id="updateForm-admin" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="admin_id" id="updateAdminId">
+  
+        <label>Admin Name:</label>
+        <input type="text" name="name" id="updateAdminName">
+  
+        <label>Store:</label>
+        <select name="store" id="updateStoreDropdown">
+          <!-- Options will be filled by JavaScript -->
+        </select> <!-- shows name -->
+        <input type="hidden" name="store_id" id="updateStoreId"> <!-- sends ID -->
+        <label>Email:</label>
+        <input type="email" name="email" id="updateAdminEmail">
+
+        <label>Password: (Leave blank to keep old password)</label>
+        <div style="display: flex; align-items: center;">
+        <input type="password" name="password" id="updatePassword" style="flex: 1; padding: 8px;" />
+        <button type="button" class="toggle-password-btn" onclick="togglePassword('updatePassword', this)">
+          👁️‍🗨
+        </button>
+        </div>
+        <label>Phone:</label>
+        <input type="text" name="phone" id="updatePhone">
+
+        <label>Date Joined:</label>
+        <input type="date" name="date_joined" id="updateDateJoined">
+  
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+<!-- Update Modal for Category -->
+
+
+<!-- Modal -->
+
+    <div id="updateModal-category" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal('category')">&times;</span>
+        <form id="updateForm-category" method="POST">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <input type="hidden" name="category_id" id="updateCategoryId">
+    
+          <label>Category Name:</label>
+          <input type="text" name="category_name" id="updateCategoryName">
+    
+          <label>Description:</label>
+          <input type="text" name="description" id="updateCategoryDescription">
+    
+          <button type="submit">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Modal for Menu -->
+
+
+<!-- Modal -->
+  
+  
+  <div id="updateModal-menu" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeUpdateModal('menu')">&times;</span>
+      <form id="updateForm-menu" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input type="hidden" name="menu_id" id="updateMenuId">
+  
+        <label>Menu Name:</label>
+        <input type="text" name="name" id="updateMenuName">
+  
+        <label>Store:</label>
+        <select name="store" id="updateStoreDropdown2">
+          <!-- Options will be filled by JavaScript -->
+        </select> <!-- shows name -->
+        <input type="hidden" name="store_id" id="updateStoreId"> <!-- sends ID -->
+        
+        <label>Admin:</label>
+        <select name="admin" id="updateAdminDropdown">
+          <!-- Options will be filled by JavaScript -->
+        </select> <!-- shows name -->
+        <input type="hidden" name="admin_id" id="updatAdminId"> <!-- sends ID -->
+        <label>Description:</label>
+        <input type="text" name="description" id="updateDescription">
+        <label>Price:</label>
+        <input type="number" name="price" id="updatePrice" step="0.01">
+        <label>Image:</label>
+        <div>
+          <span id="currentImageText"></span>
+          <!-- Display the current image if available -->
+          <img id="currentImage" src="{{ MEDIA_URL }}/{{menu.image}}" alt="Current Image" style="max-width: 100px; max-height: 100px;" />
+      </div>
+      <input type="file" id="updateMenuImage" name="image">
+
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  <!-- Button to trigger the modal -->
+
+
+<!-- Update Modal for MenuCategory -->
+
+
+<!-- Modal -->
+<div id="updateModal-menucategory" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal('menucategory')">&times;</span>
+        <form id="updateForm-menucategory" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="menucategory_id" id="updateMenuCategoryId">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+            <label>Menu:</label>
+            <select name="menu" id="updateMenuDropdown">
+                <!-- Options will be filled by JavaScript -->
+            </select>
+            <input type="hidden" name="menu_id" id="updateMenuId">
+
+            <label>Category:</label>
+            <select name="category" id="updateCategoryDropdown">
+                <!-- Options will be filled by JavaScript -->
+            </select>
+            <input type="hidden" name="category_id" id="updateCategoryId">
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+    </div><div id="updateModal-offer" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal('offer')">&times;</span>
+        <form id="updateForm-offer" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+          <input type="hidden" name="offer_id" id="updateOfferId">
+    
+          <label>Offer Name:</label>
+          <input type="text" name="offer_name" id="updateOfferName">
+    
+          <label>Store:</label>
+          <select name="store" id="updateStoreDropdown3">
+            <!-- Options will be filled by JavaScript -->
+          </select> <!-- shows name -->
+          <input type="hidden" name="store_id" id="updateStoreId"> <!-- sends ID -->
+        
+          <label>Description:</label>
+          <input type="text" name="offer_description" id="updateDescription2">
+          <label>Price:</label>
+          <input type="number" name="offer_price" id="updatePrice2" step="0.01">
+          <label>Image:</label>
+              <div>
+                  <span id="currentImageText"></span>
+                  <!-- Display the current image if available -->
+                  <img id="currentImage2" src="{{ MEDIA_URL }}/{{offer.image}}" alt="Current Image" style="max-width: 100px; max-height: 100px;" />
+              </div>
+              <input type="file" id="updateOfferImage" name="offer_image">
+  
+          <button type="submit">Save Changes</button>
+        </form>
+      </div>
+    </div>
+</div>
+
+
+<!-- Update Modal for Size -->
+
+
+<!-- Modal -->
+<div id="updateModal-size" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeUpdateModal('size')">&times;</span>
+    <form id="updateForm-size" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+      <input type="hidden" name="id" id="updateSizeId">
+
+      <label>Menu :</label>
+      <select name="menu" id="updateMenuDropdown2">
+        <!-- Options will be filled by JavaScript -->
+      </select> <!-- shows name -->
+      <input type="hidden" name="menu_id" id="updateMenuId2"> <!-- sends ID -->
+      
+      <label>Price Medium:</label>
+      <input type="number" name="price_m" id="updatePriceMedium" step="0.01">
+      ">
+      <label>Price Large:</label>
+      <input type="number" name="price_l" id="updatePriceLarge" step="0.01">
+      ">
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
+<!-- Better Styled Dynamic Modal -->
+<div id="form-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.5); z-index:9999;">
+  <div style="position:relative; width:500px; max-width:90%; margin:100px auto; background:#000000; padding:20px; border-radius:10px;">
+    <button onclick="document.getElementById('form-modal').style.display='none'" style="position:absolute; top:10px; right:10px; background:red; color:white; border:none; border-radius:50%; width:30px; height:30px;">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+
+<!-- Include Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+  </div>
+  <!-- Include All JS -->
+<script src="{% static 'js/add_admin.js' %}"></script>
+<script src="{% static 'js/filter_admin_table.js' %}"></script>
+<script src="{% static 'js/hamburger_admin.js' %}"></script>
+<script src="{% static 'js/remove_admin.js' %}"></script>
+<script src="{% static 'js/toggle_admin_tables.js' %}"></script>
+<script src="{% static 'js/update_admin_table.js' %}"></script>
+<script src="{% static 'js/password_admin_toggle.js' %}"></script>
+<script src="{% static 'js/close_admin_modal.js' %}"></script>  
+    </div>
+    <div id="footer">
+        {% include 'footer.html' %}
+      </div>
+</body>
+</html>

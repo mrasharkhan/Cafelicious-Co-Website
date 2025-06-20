@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafelicious-Co-Header</title>
+    <!-- Font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+
+  
+
+  <header>
+      <!-- Menu Desktop-->
+      <div class="header-container">
+        <nav class="desktop-nav">
+          <a href="{% url 'homepage' %}" class="nav-link"><p>Home</p></a>
+          <a href="{% url 'about' %}" class="nav-link"><p>About</p></a>
+          <a href="{% url 'menu' %}" class="nav-link"><p>Menu</p></a>
+          <a href="{% url 'order' %}" class="nav-link"><p>Order Online</p></a>
+      </nav>
+        <!-- Logo -->
+        <div class="logo">
+          <a href="{% url 'homepage' %}">
+            <img src="{{ MEDIA_URL }}logo/logo.png" alt="Cafelicious-Co logo" />
+          </a>
+        </div>
+        
+        <!-- Delivery logos -->
+        <div class="delivery-logo">
+          <a href="https://www.ubereats.com/au/store/cafelicious-%26-co/MORn2LyfXXGRMYoa4lFQzA?diningMode=PICKUP&utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank">
+            <img src="{{ MEDIA_URL }}logo/uber_eats_logo.jpg" alt="Uber Eats Logo">
+          </a>
+          <a href="https://www.doordash.com/store/cafelicious-and-co-saint-andrews-25270791/26504752/" target="_blank">
+            <img src="{{ MEDIA_URL }}logo/doordash_logo.png" alt="Doordash Logo">
+          </a>
+        </div>
+      
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav class="mobile-nav">
+          <ul>
+            <a href="{% url 'homepage' %}" class="nav-link"><p>Home</p></a>
+            <a href="{% url 'about' %}" class="nav-link"><p>About</p></a>
+            <a href="{% url 'menu' %}" class="nav-link"><p>Menu</p></a>
+            <a href="{% url 'order' %}" class="nav-link"><p>Order Online</p></a>
+          </ul>
+          <div class="delivery-logo-mobile">
+            <a href="https://www.ubereats.com/au/store/cafelicious-%26-co/MORn2LyfXXGRMYoa4lFQzA?diningMode=PICKUP&utm_campaign=CM2508147-search-free-nonbrand-google-pas_e_all_acq_Global&utm_medium=search-free-nonbrand&utm_source=google-pas" target="_blank">
+              <img src="{{ MEDIA_URL }}logo/uber_eats_logo.jpg" alt="Uber Eats Logo">
+            </a>
+            <a href="https://www.doordash.com/store/cafelicious-and-co-saint-andrews-25270791/26504752/" target="_blank">
+              <img src="{{ MEDIA_URL }}logo/doordash_logo.png" alt="Doordash Logo">
+            </a>
+          </div>
+        </nav>
+      </div>
+  </header>
+  <script src="{% static 'js/hamburger_menu.js' %}"></script>
+</html>

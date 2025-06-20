@@ -1,0 +1,213 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td {
+    border: 1px solid white;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #222;
+  }
+  
+  /* Form Elements */
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="password"],
+  select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #333;
+    border: none;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  
+  .form-container {
+    width: 100%;
+  }
+  
+  .form-container input,
+  .form-container select {
+    margin: 10px 0;
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block; /* Ensures buttons are inline */
+    width: auto; /* Keeps the buttons the size they need to be based on content */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+  
+  /* Toggle Password Button */
+  .toggle-password-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 8px;
+    margin-left: 5px;
+    color: white;
+    height: 100%;
+  }
+  
+  .toggle-password-btn:hover {
+    color: #4CAF50;
+  }
+  
+  /* Align password input + toggle button */
+  .password-field-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #000;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #181717;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Sidebar & Navigation */
+  .hamburger-icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+  }
+  
+  .left-panel {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    overflow-x: hidden;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .left-panel.open {
+    left: 0;
+  }
+  
+  .close2 {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    font-size: 25px;
+  }
+  
+  .left-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-panel ul li {
+    margin: 15px 0;
+  }
+  
+  .left-panel ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s ease;
+  }
+  
+  .left-panel ul li a:hover {
+    color: #ccc;
+  }
+  
+  /* Account Info Panel */
+  .account-info {
+    display: none;
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+  }
+
+  

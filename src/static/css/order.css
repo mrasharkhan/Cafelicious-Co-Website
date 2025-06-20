@@ -1,0 +1,148 @@
+/* Order Online page */
+.order-body {
+    margin: 0;
+    background-color: #fff8e6;
+  }
+
+  .hero {
+    background-image: url('../../../media/order_image/OnlineOrderCover.png');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+  }
+
+  /* Order Section */
+  .order-section {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px; /* Reduced padding */
+  }
+  .order-section h2 {
+    font-family: var(--title-font) !important; 
+    font-size: 2rem; /* Slightly smaller font */
+    margin: 0;
+  }
+  .order-section p {
+    font-size: 1.1rem; /* Slightly smaller font */
+    margin-top: 8px;
+    line-height: 1.3rem;
+    color: #333;
+  }
+
+  /* Container for Pickup & Delivery */
+  .order-options-container {
+    max-width: 1200px; /* Constrain total width */
+    margin: 0 auto;    /* Center horizontally */
+    padding: 0 20px;   /* Some horizontal padding */
+  }
+
+  .order-options {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  /* Pickup & Delivery Columns */
+  .pickup,
+  .delivery {
+    width: 48%;             /* Slightly smaller than 50% for spacing */
+    padding: 30px 20px;     /* Reduced from 60px 40px */
+    box-sizing: border-box;
+    text-align: center;
+    min-height: 300px;      /* You can remove or adjust this if desired */
+  }
+
+  /* Pickup Section (pale yellow) */
+  .pickup {
+    background-color: #f5e6af;
+    color: #000;
+  }
+
+  /* Delivery Section (black background) */
+  .delivery {
+    background-color: #000;
+    color: var(--highlight-color);
+  }
+
+  /* Headings inside pickup/delivery */
+  .pickup h3,
+  .delivery h3 {
+    font-size: 2rem; /* Smaller than 48px */
+    font-family: var(--title-font) !important; 
+    margin-bottom: 20px; /* Reduced spacing */
+  }
+
+  /* Call button */
+  .call-btn {
+    background-color: #b86b5e;
+    color: white;
+    padding: 8px 20px;    /* Reduced size */
+    border-radius: 6px;   /* Slightly smaller radius */
+    font-weight: bold;
+    font-size: 14px;      /* Slightly smaller font */
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;  /* Reduced spacing */
+    cursor: pointer;
+  }
+
+  .pickup p,
+  .delivery p {
+    font-size: 1.1rem;      /* Reduced font size */
+    line-height: 1.5rem;     /* Slightly reduced line-height */
+    max-width: 420px;     /* Smaller max width for text block */
+    margin: 0 auto 10px;  /* Less margin at bottom */
+  }
+
+  /* Logos */
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;           /* Reduced spacing */
+    margin-bottom: 15px; /* Reduced margin */
+  }
+
+  .logos a img {
+    height: 60px;                /* Reduced from 80px */
+    transition: transform 0.2s ease;
+  }
+
+  .logos a img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Map container */
+  .map-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px; /* Some space above the map */
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (max-width: 768px) {
+    .order-section h2 {
+      font-size: 2rem;
+    }
+
+    .order-options {
+      flex-direction: column;
+      align-items: center;
+    }
+    .pickup,
+    .delivery {
+      width: 100%;
+      margin-bottom: 20px; /* space between sections */
+    }
+    .pickup h3,
+    .delivery h3 {
+      font-size: 1.6rem; /* further reduce on mobile */
+    }
+  }

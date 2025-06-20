@@ -1,0 +1,191 @@
+{% load static %}
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafelicious & Co.</title>
+    <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+    
+    <!-- CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" /> 
+    <!-- Font awesome link-->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+ </head>
+ <body>
+    {% include 'header.html' %}
+    <main>
+      <!-- Welcome message -->
+      <div class="holizontal-line"></div>
+      <section class="home-container">
+        <div>
+          <h5 class="home-title">Welcome to<br>Cafelicious & Co</h5>
+          <p>Cafelicious & Co is a charming family-owned cafe in the heart of St. Andrews, NSW, Australia, proudly established in 2023 by Fadya Younan and Sayed Younan. With a passion for delivering high-quality food and exceptional service, we invite you to experience the warm and inviting atmosphere that makes us a beloved spot in the community.</p>
+          <button class="button">
+            <a href="{% url 'order' %}">Order Now</a>
+          </button>
+        </div>
+        <img src="{{ MEDIA_URL }}home_image/welcome-message-img.jpg" alt="cafe_image">
+      </section>
+
+      <!-- Special Offer Desktop -->
+      {% for offer in special_offer %}
+      {% if offer %}
+      <section class="special-offer">
+        {% if offer.image %}
+          <img src="{{ MEDIA_URL }}/{{offer.image }}" alt="{{ special_offer.offer_name }}">
+        {% else %}
+          <img src="{{ MEDIA_URL }}special_images/default_offer_image.jpg" alt="special-offer-image">
+        {% endif %}
+        <div>
+          <h5 class="home-title">Today's Special Offer</h5>
+          <h6>{{offer.offer_name }} only ${{offer.price }}</h6>
+          <p>{{offer.description }}</p>
+          <button class="button">
+            <a href="{% url 'order' %}">Order Now</a>
+          </button>
+        </div>
+      </section>
+      {% else %}
+      <section class="special-offer">
+        <div>
+          <h5 class="home-title">No Special Offer Today</h5>
+          <p>Check back later for exciting deals!</p>
+          <button class="button">
+            <a href="{% url 'order' %}">Order Now</a>
+          </button>
+        </div>
+      </section>
+      {% endif %}
+      {% endfor %}
+
+      <!-- Special Offer Tablet/Mobile -->
+      {% for offer in special_offer %}
+      {% if offer %}
+      <section class="special-offer-tablet">
+        <div>
+          {% if offer.image %}
+            <img src="{{ MEDIA_URL }}/{{offer.image }}" alt="{{ special_offer.offer_name }}">
+          {% else %}
+            <img src="{{ MEDIA_URL }}special_images/default_offer_image.jpg" alt="special-offer-image">
+          {% endif %}
+          <h5 class="home-title">Today's Special Offer</h5>
+          <h6>{{offer.offer_name }} only ${{offer.price }}</h6>
+          <p>{{offer.description}}</p>
+          <button class="button">
+            <a href="{% url 'order' %}">Order Now</a>
+          </button>
+        </div>
+      </section>
+      {% else %}
+      <section class="special-offer-tablet">
+        <div>
+          <h5 class="home-title">No Special Offer Today</h5>
+          <p>Check back later for exciting deals!</p>
+          <button class="button">
+            <a href="{% url 'order' %}">Order Now</a>
+          </button>
+        </div>
+      </section>
+      {% endif %}
+      {% endfor %}
+
+      <!-- Carousel Section -->
+      <section class="carousel">
+        <div class="carousel-items" id="carouselItems">
+          <img src="{{ MEDIA_URL }}home_image/carousel-image1.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image2.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image3.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image4.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image5.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image6.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image7.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image8.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image9.png" alt="carousel-image" />
+          <img src="{{ MEDIA_URL }}home_image/carousel-image10.png" alt="carousel-image" />
+        </div>
+      </section>
+      <script src="{% static 'js/carousel.js' %}"></script>
+
+      <!-- google review -->
+      <section class="review-section">
+        <i class="fa-solid fa-quote-left fa-2x"></i>
+        <div class="arrows">
+          <button class="arrow prev">&#10094;</button>
+          <button class="arrow next">&#10095;</button>
+        </div>
+    
+        <div class="review-slide active">
+          <div class="quote">“This place is amazing highly recommend. Nothing is ever a problem. Also go back for more !!!”</div>
+          <div class="author">
+            Type R STi
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">“Acai bowl was top notch! Friendly service. Will definitely return.”</div>
+          <div class="author">
+            Matt Gargan
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">“This place is my go to for breaky and lunch! Great coffee and the best food. The owners and staff are very polite and accommodating. Acai bowls are delicious.”</div>
+          <div class="author">
+            Gav Holz
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">“Wow!!! Delicious, fresh and tasty food and beverages to go with it. Clean and friendly environment. Will definitely be a regular!”</div>
+          <div class="author">
+            Jamie-Lia Bou-Francis
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">“I visited this place today and ordered an egg sandwich with coffee and waffles for my daughter. The food was great and affordable. The staff are friendly and welcoming. I do recommend this place.”</div>
+          <div class="author">
+            Nathalie Antoun
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">“I'm halfway through my waffles and coffee and couldn't wait to rate it 5 out of 5. Just fantastic..”</div>
+          <div class="author">
+            Nasser Houlayce
+          </div>
+        </div>
+        <div class="review-slide">
+          <div class="quote">
+            More reviews 
+            <a href="https://www.google.com/maps/place/Cafelicious+%26+Co/@-34.0214346,150.8319831,17z/data=!4m8!3m7!1s0x6b12ed53585d56ef:0x3392487aa0aa165!8m2!3d-34.0214346!4d150.8319831!9m1!1b1!16s%2Fg%2F11jt5ml9fr?hl=en-AU&entry=ttu&g_ep=EgoyMDI1MDQyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+              “here”
+            </a>
+          </div>
+          <div class="author">
+          </div>
+        </div>
+    
+        <div class="dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </section>
+      <script src="{% static 'js/google_review.js' %}"></script>
+    
+   
+    </main>
+    <div id="footer">
+      {% include 'footer.html' %}
+    </div>
+ </body>
+ </html>

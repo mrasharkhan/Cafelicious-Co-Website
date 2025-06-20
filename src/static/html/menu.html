@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafelicious & Co. Menu</title>
+    <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}" />
+</head>
+<body>
+    {% include 'header.html' %}
+    <main>
+      <div class="menu-container">
+        <h3 class="menu-title">Menu</h3>
+        <p>HALAL OPTIONS AVAILABLE</p>
+    
+        <!-- Menu Navigation -->
+        <div class="menu-nav">
+          {% for category_name, items in category_menu_map.items %}
+            <button>
+              <a href="#{{ category_name }}">{{ category_name }}</a>
+            </button>
+          {% endfor %}
+          <button>
+            <a href="#special-deal">Special Deal</a>
+          </button>
+        </div>
+        <!-- Back to Top Button -->
+<button id="backToTopBtn" title="Go to top">↑</button>
+
+        <!-- Dynamic Menu Sections -->
+        {% for category_name, items in category_menu_map.items %}
+          <section class="menu-section" id="{{ category_name }}">
+            <h4>{{ category_name }}</h4>  
+            <div class="category-container">
+              {% for item in items %}
+                <div class="menu-item">
+                  <h6>{{ item.menu_item.menu_name }}</h6>
+                  <p>{{ item.menu_item.description }}</p>
+                  <span>
+                    ${{ item.menu_item.price }}
+                    {% if item.sizes %}
+                      {% for size in item.sizes %}
+                        (M: ${{ size.price_m }}, L: ${{ size.price_l }})
+                      {% endfor %}
+                    {% endif %}
+                  </span>
+                  <!-- 
+                  {% if item.menu_item.image %}
+                    <img src="{{ item.menu_item.image.url }}" alt="{{ item.menu_item.menu_name }}" style="max-width: 100px;">
+                  {% endif %}
+                  -->
+                </div>
+              {% empty %}
+                <p>No items available in this category.</p>
+              {% endfor %}
+            </div>
+          </section>
+        {% endfor %}
+    
+        <!-- Today's Special Deal -->
+        {% for offer in special_offer %}
+          {% if offer %}
+            <section class="menu-section" id="special-deal">
+              <h4>Today's Special Deal</h4>
+              <div class="category-container">
+                <div class="menu-item">
+                  <h6>{{ offer.offer_name }}</h6>
+                  <p>{{ offer.description }}</p>
+                  <span>Price: ${{ offer.price }}</span>
+                </div>
+              </div>
+            </section>
+          {% endif %}
+        {% endfor %}
+      </div>
+    <!-- Link the external JS file -->
+    <script src="{% static 'js/backToTop.js' %}"></script>
+    </main>
+    <div id="footer">
+      {% include 'footer.html' %}
+    </div>
+</body>
+</html>

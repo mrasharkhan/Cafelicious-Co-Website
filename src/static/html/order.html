@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafelicious & Co. Order</title>
+    <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+
+    <!-- CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/order.css' %}" />
+    
+ </head>
+  <body class="order-body">
+    {% include 'header.html' %}
+  <main>
+    <!-- Hero -->
+    <div class="hero"></div>
+
+    <!-- Order Header -->
+    <div class="order-section">
+      <h2>Order</h2>
+      <p>You can order online! Browse our menu items and choose what you'd like to order from us.</p>
+    </div>
+
+    <!-- Main Container for Pickup & Delivery -->
+    <div class="order-options-container">
+      <div class="order-options">
+
+        <!-- Pickup -->
+        <div class="pickup">
+          <h3>Pickup</h3>
+          <a href="tel:(02)96032697" class="call-btn">Call Us ☎</a>
+          <p>Place an order by phone <strong>(02) 9603 2697</strong> for quick pickup at our store to pick up your favourite treats fresh and hot.</p>
+          <p><strong>Pickup Address:</strong> Shop 1/91 Ballantrae Dr, St Andrews NSW 2566</p>
+        </div>
+
+        <!-- Delivery -->
+        <div class="delivery">
+          <h3>Delivery</h3>
+          <div class="logos">
+            <a href="https://www.ubereats.com/au/store/cafelicious-%26-co/MORn2LyfXXGRMYoa4lFQzA" target="_blank">
+              <img src="{{ MEDIA_URL }}logo/UberEats.jpeg" alt="Uber Eats">
+            </a>
+            <a href="https://www.doordash.com/store/cafelicious-and-co-saint-andrews" target="_blank">
+              <img src="{{ MEDIA_URL }}logo/doordash_logo.png" alt="DoorDash">
+            </a>
+          </div>
+          <p>
+            Sit back and relax while your order comes to you. 
+            <strong>Enjoy our menu from the comfort of your home</strong> 
+            with delivery services available through Uber Eats and Doordash.
+          </p>
+        </div>
+
+      </div> <!-- end .order-options -->
+    </div> <!-- end .order-options-container -->
+
+    <!-- Map -->
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps?q=Shop+1%2F91+Ballantrae+Dr,+St+Andrews+NSW+2566&output=embed"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </main>
+  <div id="footer">
+    {% include 'footer.html' %}
+  </div>
+  </body>
+</html>

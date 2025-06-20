@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafelicious-Co-Footer</title>
+      <!-- Font link -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">  
+    <!-- CSS link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<footer>
+    <div class="footer-container">
+        <!-- Opening Hours -->
+        <section class="footer-section">
+            <h5 class="footer-title">Opening Hours</h5>
+            <ul class="footer-content">
+                <li>Sunday 7am - 7:30pm</li>
+                <li>Monday 6:30am - 7:30pm</li>
+                <li>Tuesday 6:30am - 7:30pm</li>
+                <li>Wednesday 6:30am - 8pm</li>
+                <li>Thursday 6:30am - 8pm</li>
+                <li>Friday 6:30am - 8pm</li>
+                <li>Saturday 6:30am - 8pm</li>
+            </ul>
+        </section>
+
+        <!-- Contact -->
+        <section class="footer-section">
+            <h5 class="footer-title">Contact</h5>
+            <div class="footer-content">
+                <p>Phone: <a href="tel:+296032697">(02) 9603 2697</a></p>
+                <p><a href="mailto:info@cafeliciousco.com">info@cafeliciousco.com</a></p>
+            </div>
+            <div class="footer-content">
+                <p>Shop 1/91 Ballantrae Dr, St</p>
+                <p>Andrews NSW 2566, Australia.</p>
+            </div>
+        </section>
+
+        <!-- Social medias -->
+        <section class="footer-section">
+            <h5 class="footer-title">Follow Us</h5>
+            <div class="social-logo-container">
+                <!-- TikTok -->
+            <a href="https://www.tiktok.com/@cafeliciousco" target="_blank">
+                <img src="{{ MEDIA_URL }}logo/tiktok_logo.png" alt="tiktok logo" class="social-logo">
+            </a>
+            <!-- Google -->
+            <a href="https://www.google.com/search?sca_esv=c137534a6bb4ed6f&rlz=1C1ONGR_en-gbAU1104AU1104&kgmid=/g/11jt5ml9fr&q=Cafelicious+%26+Co&shndl=30&shem=uaasie&source=sh/x/loc/uni/m1/1&kgs=5f2ff81efcce88c8" target="_blank">
+                <img src="{{ MEDIA_URL }}logo/google_logo.png" alt="google logo" class="social-logo">
+            </a>
+            <!-- facebook -->
+            <a href="https://www.facebook.com/cafeliciousandco/" target="_blank">
+                <img src="{{ MEDIA_URL }}logo/facebook_logo.png" alt="facebook logo" class="social-logo">
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/cafeliciousandco/" target="_blank">
+                <img src="{{ MEDIA_URL }}logo/instagram_logo.png" alt="instagram logo" class="social-logo">
+            </a>
+            </div>
+        </section>
+    </div>
+    <p class="copyright"> &copy; 2025 by Cafelicious & Co.</p>
+</footer>
+</html>

@@ -1,0 +1,152 @@
+.menu-container {
+    background-color: var(--background-color);
+    padding: 40px 100px 80px 100px;
+}
+
+.menu-container > p,
+.menu-section > p {
+    color: #ffffff;
+    margin: 0;
+    font-weight: 100;
+}
+
+.menu-title {
+    color: var(--text-accent);
+    font-family: var(--title-font) !important;  
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.8rem;
+}
+
+.menu-section > h4 {
+    color: var(--text-accent);
+    font-family: var(--title-font) !important;  
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 3rem;
+    margin-bottom: 0.2rem;
+    
+}
+.menu-section {
+  scroll-margin-top: 100px; /* Adjust this to match or slightly exceed your header height */
+  padding-top: 1rem;        /* Optional: adds breathing room for visual clarity */
+}
+
+
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.menu-item {
+    margin: 1.5rem 1.5rem 2.5rem 1.5rem;
+}
+
+.extra-item div p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.menu-item h6,
+.menu-item span,
+.extra-item div h6,
+.extra-item div span {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.menu-nav {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.menu-nav button {
+    background-color: #ffffff;
+    transition: 0.3s ease-in-out;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.menu-nav button:hover {
+    background-color: var(--highlight-color);
+}
+
+.menu-nav button a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.9rem;
+    transition: 0.1s ease-in-out;
+}
+
+.menu-item p,
+.extra-item div p {
+    color: var(--text-accent);
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-weight: 100;
+}
+
+.extra-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0rem 1.5rem 4rem 1.5rem;
+}
+
+.extra-item div {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.3rem;
+}
+
+.extra-title {
+    margin-top: 1rem !important;
+}
+
+/* mobile */
+@media (max-width: 640px) {
+    .menu-container {
+        padding: 40px 50px 80px 50px;;
+    }
+}
+/* tablet */
+@media screen and (min-device-width: 641px) and (max-device-width: 1023px)  {
+    .category-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .menu-container {
+        padding: 40px 50px 80px 50px;;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+
+  #backToTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    z-index: 99;
+    background-color: #333;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    display: none; /* Hidden by default */
+    transition: opacity 0.3s ease;
+  }
+  
+  #backToTopBtn:hover {
+    background-color: #555;
+  }
+  

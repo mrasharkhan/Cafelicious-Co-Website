@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cafelicious & Co. About Us</title>
+  <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+      <!-- CSS link -->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/about.css' %}" />
+
+</head>
+  <body>
+    {% include 'header.html' %}
+    <div class="about-section">
+        <h2>Our Story</h2>
+        <p>Welcome to our family restaurant established in 2023! We take pride in serving delicious, home-cooked meals that bring loved ones together. Our cozy atmosphere is perfect for gatherings, celebrations, or simply enjoying a meal with family and friends. Come in and experience the warmth and flavor that makes every visit special!</p>
+    </div>
+
+    <img src="{{ MEDIA_URL }}about_images/about.jpeg" alt="about image" class="about-img"/>
+
+    <div class="kitchen-section">
+        <h2>In The Kitchen</h2>
+        <p>At Cafelicious & Co, we take pride in our approach to creating delicious and wholesome dishes in our kitchen. Using locally sourced ingredients, our talented chefs craft each meal with care and attention to detail, ensuring a delightful dining experience for our guests.</p>
+    </div>
+
+    <div class="kitchen-gallery">
+        <img src="{{ MEDIA_URL }}about_images/kitchen1.jpg" alt="Kitchen Image 1" />
+        <img src="{{ MEDIA_URL }}about_images/kitchen2.jpg" alt="Kitchen Image 2" />
+        <img src="{{ MEDIA_URL }}about_images/kitchen3.jpg" alt="Kitchen Image 3" />
+        <img src="{{ MEDIA_URL }}about_images/kitchen4.jpg" alt="Kitchen Image 4" />
+    </div>
+    <div id="footer">
+    {% include 'footer.html' %}
+    </div>
+  </body>
+</html>

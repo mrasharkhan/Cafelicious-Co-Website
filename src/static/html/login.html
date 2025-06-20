@@ -1,0 +1,132 @@
+{% load static %}
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <link rel="icon" type="image/x-icon" href="{{ MEDIA_URL }}logo/favicon.png">
+  <link rel="stylesheet" href="{% static 'css/style_admin.css' %}">
+  <style>
+    /* Additional styling for the forgot password modal */
+    #forgotPasswordModal:target {
+      display: flex;
+    }
+    .forgot-password-link {
+      display: block;
+      margin-top: 10px;
+      color: #ccc;
+      font-size: 14px;
+      text-align: right;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .forgot-password-link:hover {
+      color: white;
+    }
+    .error-message {
+        color: red;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .error-message p {
+        margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div>{% include 'header.html' %}</div>
+  <header>Admin Login</header>
+  {% if messages %}
+  <div class="error-message">
+      {% for message in messages %}
+          <p>{{ message }}</p>
+      {% endfor %}
+  </div>
+{% endif %}
+  <div class="container">
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+    
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+    
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Forgot password link -->
+    <a href="#forgotPasswordModal" class="forgot-password-link">Forgot Password?</a>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close" onclick="closeModal()">&times;</a>
+        <h2>Reset Password</h2>
+        <form id="resetPasswordForm">
+            {% csrf_token %}
+            <input type="email" id="resetEmail" name="reset_email" placeholder="Enter your email" required>
+            <button type="submit">Send Reset Link</button>
+            <p id="resetMessage" style="margin-top: 10px;"></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Function to extract CSRF token
+    function getCSRFToken() {
+        let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        return csrfToken;
+    }
+
+    // Function to send the reset link
+    function sendResetLink(event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        const email = document.getElementById('resetEmail').value;
+        const messageBox = document.getElementById('resetMessage');
+  
+        if (!email) {
+            messageBox.innerText = "Please enter your email address.";
+            messageBox.style.color = 'red';
+            return;
+        }
+  
+        // Send the email via AJAX
+        fetch('/send_admin_reset_link/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()  // Include CSRF token in the request headers
+            },
+            body: JSON.stringify({ email: email })  // Send email as JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            messageBox.innerText = data.message;
+            messageBox.style.color = data.success ? 'green' : 'red';  // Change message color based on success or error
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            messageBox.innerText = "An error occurred while sending the reset link.";
+            messageBox.style.color = 'red';
+        });
+    }
+
+    // Bind the form submission to the sendResetLink function
+    document.getElementById('resetPasswordForm').addEventListener('submit', sendResetLink);
+</script>
+
+
+  
+  <div id="footer">
+    {% include 'footer.html' %}
+    
+  
+  </div>
+</body>
+</html>
+
